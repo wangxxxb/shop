@@ -1,5 +1,6 @@
 "use strict";
 const path = require("path");
+const defaultSettings = require("./src/settings");
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -8,12 +9,10 @@ function resolve(dir) {
 module.exports = {
   assetsDir: "static",
   outputDir: "dist",
-  publicPath: process.env.NODE_ENV === "production" ? "/vant-demo/" : "/",
+  publicPath: "/", // 可能会使用函数代替
   productionSourceMap: false,
   configureWebpack: {
-    // provide the app's title in webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
-    name: "shop",
+    name: defaultSettings.title,
     resolve: {
       alias: {
         "@": resolve("src")
@@ -79,6 +78,14 @@ module.exports = {
           "font-size-lg": "17px"
         }
       }
+    }
+  },
+  devServer: {
+    port: defaultSettings.port || 8080,
+    open: true,
+    overlay: {
+      warnings: false,
+      errors: true
     }
   }
 };
