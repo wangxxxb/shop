@@ -12,6 +12,13 @@ npm install
 npm run dev
 ```
 
+
+### Compiles and minifies for staging
+
+```
+npm run build:staging
+```
+
 ### Compiles and minifies for production
 
 ```
