@@ -1,6 +1,4 @@
 "use strict";
-const autoprefixer = require("autoprefixer");
-const pxtoviewport = require("postcss-px-to-viewport");
 const path = require("path");
 
 function resolve(dir) {
@@ -19,18 +17,6 @@ module.exports = {
     resolve: {
       alias: {
         "@": resolve("src")
-      }
-    }
-  },
-  css: {
-    loaderOptions: {
-      postcss: {
-        plugins: [
-          autoprefixer(),
-          pxtoviewport({
-            viewportWidth: 375
-          })
-        ]
       }
     }
   },
