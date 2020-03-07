@@ -69,5 +69,16 @@ module.exports = {
       });
       config.optimization.runtimeChunk("single");
     });
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          "font-size-sm": "13px",
+          "font-size-md": "15px",
+          "font-size-lg": "17px"
+        }
+      }
+    }
   }
 };
