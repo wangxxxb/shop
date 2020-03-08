@@ -1,9 +1,9 @@
-import * as globalTypes from "./global";
+import * as globalTypes from './global'
 
 const TYPES = {
-  globalTypes
-};
+    globalTypes
+}
 
-export { globalTypes };
+export { globalTypes }
 
-export default TYPES;
+export default TYPES

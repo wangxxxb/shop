@@ -1,17 +1,17 @@
-import { globalTypes } from "@/constants";
+import { globalTypes } from '@/constants'
 
 /**
  * @export 判断获取运行所处的浏览器环境
  * @returns 浏览器环境
  */
 export function getNavigatorType() {
-  if (/MicroMessenger/.test(window.navigator.userAgent)) {
-    return globalTypes.WEIXIN;
-  } else if (/AlipayClient/.test(window.navigator.userAgent)) {
-    return globalTypes.ALI;
-  } else {
-    return null;
-  }
+    if (/MicroMessenger/.test(window.navigator.userAgent)) {
+        return globalTypes.WEIXIN
+    } else if (/AlipayClient/.test(window.navigator.userAgent)) {
+        return globalTypes.ALI
+    } else {
+        return null
+    }
 }
 
 /**
@@ -21,24 +21,24 @@ export function getNavigatorType() {
  * @returns url中query解析出的参数对象
  */
 export function getURLParams(url, deleteEmputy = false) {
-  if (!url) {
-    if (typeof window === "undefined") return {};
-    url = window && window.location.search;
-  }
-
-  if (!url || url.indexOf("?") === -1) return {};
-
-  const params = {};
-  const paramList = url.split("?")[1].split("&");
-
-  paramList.forEach(item => {
-    const [key, value] = item.split("=");
-    if (!key || (deleteEmputy && !value)) {
-      return;
+    if (!url) {
+        if (typeof window === 'undefined') return {}
+        url = window && window.location.search
     }
-    params[key] = value;
-  });
-  return params;
+
+    if (!url || url.indexOf('?') === -1) return {}
+
+    const params = {}
+    const paramList = url.split('?')[1].split('&')
+
+    paramList.forEach((item) => {
+        const [key, value] = item.split('=')
+        if (!key || (deleteEmputy && !value)) {
+            return
+        }
+        params[key] = value
+    })
+    return params
 }
 
 /**
@@ -47,12 +47,12 @@ export function getURLParams(url, deleteEmputy = false) {
  * @returns
  */
 export function roundNum(num) {
-  const REGEXP = /^[0-9]+.$/;
-  const value = Math.round(num * 100) / 100;
-  if (REGEXP.test(num)) {
-    return `${value}`;
-  }
-  return value;
+    const REGEXP = /^[0-9]+.$/
+    const value = Math.round(num * 100) / 100
+    if (REGEXP.test(num)) {
+        return `${value}`
+    }
+    return value
 }
 
 /**
@@ -61,8 +61,8 @@ export function roundNum(num) {
  * @returns true | false
  */
 export function isInterger(int) {
-  const REGEXP = /^[0-9]*$/g;
-  return REGEXP.test(int);
+    const REGEXP = /^[0-9]*$/g
+    return REGEXP.test(int)
 }
 
 /**
@@ -71,8 +71,8 @@ export function isInterger(int) {
  * @returns true | false
  */
 export function isFloat(float) {
-  const REGEXP = /^[0-9]*(\.)?([0-9]{0,2})?$/g;
-  return REGEXP.test(float);
+    const REGEXP = /^[0-9]*(\.)?([0-9]{0,2})?$/g
+    return REGEXP.test(float)
 }
 
 /**
@@ -81,7 +81,7 @@ export function isFloat(float) {
  * @returns true | false
  */
 export function isString(value) {
-  return typeof value === "string";
+    return typeof value === 'string'
 }
 
 /**
@@ -90,7 +90,7 @@ export function isString(value) {
  * @returns true | false
  */
 export function isNumber(value) {
-  return typeof value === "number";
+    return typeof value === 'number'
 }
 
 /**
@@ -99,13 +99,13 @@ export function isNumber(value) {
  * @returns
  */
 export function once(fn) {
-  return function(...args) {
-    if (fn) {
-      let ret = fn.apply(this, args);
-      fn = null;
-      return ret;
+    return function(...args) {
+        if (fn) {
+            let ret = fn.apply(this, args)
+            fn = null
+            return ret
+        }
     }
-  };
 }
 
 /**
@@ -115,14 +115,14 @@ export function once(fn) {
  * @returns
  */
 export function debounce(fn, timeInterval) {
-  let timer = 0;
-  return (...args) => {
-    const newTimer = new Date().getTime();
-    if (newTimer - timer > timeInterval) {
-      timer = newTimer;
-      return fn.apply(this, args);
+    let timer = 0
+    return (...args) => {
+        const newTimer = new Date().getTime()
+        if (newTimer - timer > timeInterval) {
+            timer = newTimer
+            return fn.apply(this, args)
+        }
     }
-  };
 }
 
 /**
@@ -132,14 +132,14 @@ export function debounce(fn, timeInterval) {
  * @returns
  */
 export function throttle(fn, timeInterval) {
-  let timer = null;
+    let timer = null
 
-  return (...args) => {
-    if (timer === null) {
-      timer = setTimeout(fn.bind(this, ...args), 0);
-      return;
+    return (...args) => {
+        if (timer === null) {
+            timer = setTimeout(fn.bind(this, ...args), 0)
+            return
+        }
+        clearTimeout(timer)
+        timer = setTimeout(fn.bind(this, ...args), timeInterval)
     }
-    clearTimeout(timer);
-    timer = setTimeout(fn.bind(this, ...args), timeInterval);
-  };
 }

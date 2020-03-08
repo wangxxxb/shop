@@ -1,3 +1,3 @@
-import ajax from "./ajax";
+import ajax from './ajax'
 
-export default ajax;
+export default ajax

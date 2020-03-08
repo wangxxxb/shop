@@ -1,2 +1,2 @@
-export const WEIXIN = "WEIXIN";
-export const ALI = "ALI";
+export const WEIXIN = 'WEIXIN'
+export const ALI = 'ALI'
