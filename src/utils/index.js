@@ -4,7 +4,7 @@ import { globalTypes } from '@/constants'
  * @export 判断获取运行所处的浏览器环境
  * @returns 浏览器环境
  */
-export function getNavigatorType() {
+export function getBrowserType() {
     if (/MicroMessenger/.test(window.navigator.userAgent)) {
         return globalTypes.WEIXIN
     } else if (/AlipayClient/.test(window.navigator.userAgent)) {
@@ -142,4 +142,92 @@ export function throttle(fn, timeInterval) {
         clearTimeout(timer)
         timer = setTimeout(fn.bind(this, ...args), timeInterval)
     }
+}
+
+/**
+ * 存储local数据的函数
+ * @export
+ * @param {*} KEY
+ * @param {*} data
+ * @returns
+ */
+export function setLocal(key, data) {
+    try {
+        if (typeof data !== 'string')
+            throw new Error('data must be String type')
+
+        localStorage.setItem(globalTypes.LOCAL_PREFIX + key, data)
+
+        return {
+            data,
+            success: true
+        }
+    } catch (error) {
+        return {
+            error,
+            success: false
+        }
+    }
+}
+
+/**
+ * 获取本地存储数据
+ * @export
+ * @param {*} key 取值所需要的key
+ * @param {*} defaultValue 默认值，用来判断获取的值是否与
+ * @param {boolean} [needParse=false]
+ * @returns
+ */
+export function getLocal(key, defaultValue, needParse = false) {
+    try {
+        const localData = localStorage.getItem(globalTypes.LOCAL_PREFIX + key)
+
+        if (localData !== null) {
+            // 判断是否需要parse，数字字符串会被parse成Number类型，'123abc'这种类型字符串会报错，这两种字符串都不需要parse
+            const parsedData = (needParse && JSON.parse(localData)) || localData
+
+            // 存在默认值则进入下一步判断、不存在直接返回
+            if (defaultValue !== undefined) {
+                // 判断类型是否相同（这里不考虑NaN），相等返回解析后的数据，不相等则抛出错误
+                if (
+                    Object.prototype.toString.call(defaultValue) ===
+                    Object.prototype.toString.call(parsedData)
+                ) {
+                    return {
+                        data: parsedData,
+                        success: true
+                    }
+                } else {
+                    throw new Error(
+                        `parsedData:${parsedData}与defaultValue:${defaultValue}类型不相等`
+                    )
+                }
+            } else {
+                return {
+                    data: parsedData,
+                    success: true
+                }
+            }
+        } else {
+            // 如果没有local记录，返回错误提醒，同时将默认值返回
+            return {
+                data: defaultValue,
+                success: false
+            }
+        }
+    } catch (error) {
+        return {
+            success: false,
+            error
+        }
+    }
+}
+
+/**
+ * 删除本地存储
+ * @export
+ * @param {*} key
+ */
+export function clearLocal(key) {
+    localStorage.removeItem('LOCAL_' + key)
 }

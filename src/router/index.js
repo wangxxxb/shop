@@ -1,35 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { once } from '@/utils'
+import { getUserInfo } from '@/utils/user'
+import store from '@/store'
+import routes from './routes'
 
 Vue.use(Router)
-
-const routes = [
-    {
-        path: '*',
-        redirect: '/goods'
-    },
-    {
-        name: 'user',
-        component: () => import('@/views/user'),
-        meta: {
-            title: '会员中心'
-        }
-    },
-    {
-        name: 'cart',
-        component: () => import('@/views/cart'),
-        meta: {
-            title: '购物车'
-        }
-    },
-    {
-        name: 'goods',
-        component: () => import('@/views/goods'),
-        meta: {
-            title: '商品详情'
-        }
-    }
-]
 
 // add route path
 routes.forEach((route) => {
@@ -38,12 +14,29 @@ routes.forEach((route) => {
 
 const router = new Router({ routes })
 
+const initQuery = once(getUserInfo)
+
 router.beforeEach((to, from, next) => {
-    const title = to.meta && to.meta.title
-    if (title) {
-        document.title = title
+    const backupQuery = (initQuery && initQuery(to.query)) || null
+    if (!store.getters.isAccessEnter) {
+        console.log(
+            '退出程序，或者跳转到显示请在支付宝或者微信浏览器打开的页面'
+        )
+    } else {
+        if (backupQuery) {
+            next({
+                ...to,
+                query: backupQuery
+            })
+        } else {
+            const title = to.meta && to.meta.title
+
+            if (title) {
+                document.title = title
+            }
+            next()
+        }
     }
-    next()
 })
 
 export { router }

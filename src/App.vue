@@ -4,16 +4,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    created() {
-        const a = '1'
-        console.log(a)
-        console.log(process.env)
-    }
-}
-</script>
-
 <style>
 body {
     font-size: 16px;
