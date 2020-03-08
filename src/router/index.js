@@ -19,6 +19,7 @@ const initQuery = once(getUserInfo)
 router.beforeEach((to, from, next) => {
     const backupQuery = (initQuery && initQuery(to.query)) || null
     const accessData = store.getters.isAccessEnter
+
     if (!accessData.access) {
         console.warn(accessData.msg)
     } else {

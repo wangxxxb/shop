@@ -231,3 +231,30 @@ export function getLocal(key, defaultValue, needParse = false) {
 export function clearLocal(key) {
     localStorage.removeItem('LOCAL_' + key)
 }
+
+// 动态加载某script脚本
+export function dynamicScript(src) {
+    return new Promise((resolve, reject) => {
+        try {
+            const script = document.createElement('script')
+            const head = document.getElementsByTagName('head')[0]
+
+            script.setAttribute('type', 'text/javascript')
+            script.setAttribute('src', src)
+            script.setAttribute('charset', 'utf-8')
+            script.onload = script.onreadystatechange = function() {
+                if (
+                    !this.readyState ||
+                    this.readyState == 'loaded' ||
+                    this.readyState == 'complete'
+                ) {
+                    script.onload = script.onreadystatechange = null
+                    resolve()
+                }
+            }
+            head.appendChild(script)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

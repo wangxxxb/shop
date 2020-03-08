@@ -1,13 +1,27 @@
 <template>
-    <div id="app" a="1" b="2" d="123">
+    <div id="app">
         <router-view />
     </div>
 </template>
 
-<style>
-body {
-    font-size: 16px;
-    background-color: #f8f8f8;
-    -webkit-font-smoothing: antialiased;
+<script>
+import { dynamicScript } from '@/utils'
+import { mapMutations, mapState } from 'vuex'
+import { SET_BRIDGE_READY } from '@/store/global/mutation-types'
+import { WEIXIN } from '@/constants/global'
+
+export default {
+    computed: {
+        ...mapState(['browserType'])
+    },
+    methods: {
+        ...mapMutations([SET_BRIDGE_READY])
+    },
+    async created() {
+        // 初始化判断浏览器环境，如果是微信浏览器，就添加微信sdk
+        if (this.browserType === WEIXIN)
+            await dynamicScript('http://res.wx.qq.com/open/js/jweixin-1.0.0.js')
+        this[SET_BRIDGE_READY]()
+    }
 }
-</style>
+</script>
