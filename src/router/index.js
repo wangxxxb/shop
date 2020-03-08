@@ -18,10 +18,9 @@ const initQuery = once(getUserInfo)
 
 router.beforeEach((to, from, next) => {
     const backupQuery = (initQuery && initQuery(to.query)) || null
-    if (!store.getters.isAccessEnter) {
-        console.log(
-            '退出程序，或者跳转到显示请在支付宝或者微信浏览器打开的页面'
-        )
+    const accessData = store.getters.isAccessEnter
+    if (!accessData.access) {
+        console.warn(accessData.msg)
     } else {
         if (backupQuery) {
             next({
