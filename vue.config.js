@@ -21,15 +21,15 @@ module.exports = {
     },
     chainWebpack(config) {
         // set preserveWhitespace
-        config.module
-            .rule('vue')
-            .use('vue-loader')
-            .loader('vue-loader')
-            .tap((options) => {
-                options.compilerOptions.preserveWhitespace = true
-                return options
-            })
-            .end()
+        // config.module
+        //     .rule('vue')
+        //     .use('vue-loader')
+        //     .loader('vue-loader')
+        //     .tap((options) => {
+        //         options.compilerOptions.preserveWhitespace = true
+        //         return options
+        //     })
+        //     .end()
 
         config
             // https://webpack.js.org/configuration/devtool/#development
@@ -75,7 +75,9 @@ module.exports = {
                 modifyVars: {
                     'font-size-sm': '13px',
                     'font-size-md': '15px',
-                    'font-size-lg': '17px'
+                    'font-size-lg': '17px',
+                    'main-color-prime': '#199ed8',
+                    'main-color-text-default': '#199ed8'
                 }
             }
         }

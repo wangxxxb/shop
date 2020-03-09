@@ -1,27 +1,24 @@
 export default [
     {
+        path: '/',
+        redirect: '/index'
+    },
+    {
+        name: 'index',
+        component: () => import('@/views/index'),
+        meta: {
+            title: '酒店在线超市'
+        }
+    },
+    {
+        name: '404',
+        component: () => import('@/views/404'),
+        meta: {
+            title: '404 Not Found'
+        }
+    },
+    {
         path: '*',
-        redirect: '/goods'
-    },
-    {
-        name: 'user',
-        component: () => import('@/views/user'),
-        meta: {
-            title: '会员中心'
-        }
-    },
-    {
-        name: 'cart',
-        component: () => import('@/views/cart'),
-        meta: {
-            title: '购物车'
-        }
-    },
-    {
-        name: 'goods',
-        component: () => import('@/views/goods'),
-        meta: {
-            title: '商品详情'
-        }
+        redirect: '/404'
     }
 ]
