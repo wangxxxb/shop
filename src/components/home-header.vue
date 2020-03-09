@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    name: 'index-header'
+    name: 'home-header'
 }
 </script>
 

@@ -10,3 +10,26 @@ export const USER_INFO_KEYMAP = [
     'nickname'
 ]
 export const USER_INFO = 'USER_INFO'
+
+export const MENU = [
+    {
+        name: '首页',
+        icon: 'wap-home-o',
+        link: '/'
+    },
+    {
+        name: '客房服务',
+        icon: 'service-o',
+        link: '/room-service'
+    },
+    {
+        name: '评价酒店',
+        icon: 'edit',
+        link: '/hotel-evaluation'
+    },
+    {
+        name: '个人中心',
+        icon: 'user-o',
+        link: '/user-center'
+    }
+]

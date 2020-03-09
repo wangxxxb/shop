@@ -6,13 +6,13 @@
 
 <script>
 export default {
-    name: 'banner'
+    name: 'home-banner'
 }
 </script>
 <style lang="less" scoped>
 .banner {
     display: block;
-    padding: 15px;
+    padding: 15px 15px 0;
     border-radius: 15px;
     overflow: hidden;
     img {
