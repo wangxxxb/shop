@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import { obj2str } from '@/utils'
-import settings from '@/settings'
 import qs from 'qs'
+import { SIGN } from '@/constants/pay'
 
 export default class Service {
     constructor($axios, $configs) {
@@ -33,7 +33,7 @@ export default class Service {
                         ? obj2str(params)
                         : obj2str(data)
 
-                    signData += `&key=${settings.md5Key}`
+                    signData += `&key=${SIGN}`
                     const sign = md5(signData)
 
                     if (!isPostOrPut) {

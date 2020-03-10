@@ -1,6 +1,5 @@
 import ajax from '../ajax'
 import apis from '../apis'
-// import { isObj } from '@/utils'
 
 /**
  * 获取商品品类

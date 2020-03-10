@@ -1,5 +1,7 @@
 import * as TYPES from './mutation-types'
 import { getGoodsCategory, getGoodsList } from '@/http/request/goods'
+import { aliPay } from '@/http/request/pay'
+import { TEST_GOODS } from '@/constants/pay'
 
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
@@ -40,5 +42,32 @@ export default {
             goods,
             isIncrease
         })
+    },
+    async aliPay({ rootState }) {
+        const idDev = process.env.VUE_APP_ENV === 'development'
+        const { agent, hotelId, userId, roomId } = rootState.userInfo
+
+        const params = {
+            agentId: agent,
+            body: '购物',
+            goods: idDev ? decodeURIComponent(TEST_GOODS) : TEST_GOODS,
+            hotelId,
+            openid: userId,
+            roomId,
+            total_fee: idDev ? 10 : 10
+        }
+
+        const res = await aliPay(params)
+
+        if (res) {
+            const submit = document.createElement('div')
+            submit.style.display = 'none'
+            submit.setAttribute('id', 'submit-pay')
+            submit.innerHTML = res
+
+            document.body.appendChild(submit)
+
+            console.log(submit.querySelector('form'))
+        }
     }
 }

@@ -26,4 +26,10 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.cart-goods-item {
+    .van-card {
+        background-color: #ffffff;
+    }
+}
+</style>

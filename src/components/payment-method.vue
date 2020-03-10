@@ -31,7 +31,7 @@
     </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { RadioGroup, Radio, SubmitBar } from 'vant'
 
 export default {
@@ -55,7 +55,9 @@ export default {
         }
     },
     methods: {
+        ...mapActions('goods', ['aliPay']),
         onSubmit() {
+            this.aliPay()
             console.log(this.cartGoodsTotalPrice)
         }
     }
