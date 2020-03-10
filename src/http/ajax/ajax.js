@@ -1,4 +1,4 @@
-import Service from '@/http/service'
+import Service from './service'
 
 /**
  *生成ajax
@@ -6,6 +6,10 @@ import Service from '@/http/service'
  * @class Ajax
  */
 export default class Ajax extends Service {
+    constructor(axios, config) {
+        super(axios, config)
+    }
+
     response = async ({ method = 'get', url, params, data, configExt }) => {
         // 配置config
         const config = {
@@ -18,9 +22,10 @@ export default class Ajax extends Service {
         try {
             return await this.service(config)
         } catch (error) {
+            console.warn(error)
             return error
         } finally {
-            // console.log(123);
+            // console.log('finally');
         }
     }
 
@@ -43,9 +48,5 @@ export default class Ajax extends Service {
 
     delete = async (url, configExt = {}) => {
         return await this.reseponse({ method: 'delete', url, configExt })
-    }
-
-    _isObject = (obj) => {
-        return obj && typeof obj === 'object'
     }
 }

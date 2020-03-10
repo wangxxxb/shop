@@ -1,17 +1,11 @@
-const apiContext = require.context('./', false, /\.js$/)
+const modulesFiles = require.context('./', true, /\.js$/)
 
-let apis = {}
-apiContext.keys().forEach((apiMap) => {
-    const api = apiContext(apiMap)
-    /**
-     * 兼容 import export 和 require module.export 两种规范
-     */
-    const ctrl = api.default || api
-
-    apis = {
-        ...apis,
-        ...ctrl
+export default modulesFiles.keys().reduce((modules, modulePath) => {
+    // set './app.js' => 'app'
+    const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+    const value = modulesFiles(modulePath)
+    if (value.default) {
+        modules[moduleName] = value.default
     }
-})
-
-export default apis
+    return modules
+}, {})

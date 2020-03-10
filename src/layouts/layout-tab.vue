@@ -25,10 +25,7 @@ export default {
 
 <style lang="less" scoped>
 .layout-main {
-    padding: 10px 0 45px 0;
-    &.bottom-blank {
-        padding-bottom: 95px;
-    }
+    padding: 10px 0 50px 0;
     .content {
         padding-bottom: 50px;
     }

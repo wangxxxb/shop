@@ -258,3 +258,31 @@ export function dynamicScript(src) {
         }
     })
 }
+
+/**
+ * 判断是否为对象
+ * @export
+ * @param {*} obj
+ * @returns Boolean
+ */
+export function isObj(obj) {
+    return Object.prototype.toString.call(obj) === '[object Object]'
+}
+
+/**
+ * 只考虑字符串类型的属性值，不考虑复杂类型
+ * @export
+ * @param {*} obj
+ */
+export function obj2str(obj) {
+    if (!isObj(obj)) return ''
+    return Object.keys(obj).reduce((prev, current, index, arr) => {
+        return (
+            prev +
+            current +
+            '=' +
+            obj[current] +
+            (index === arr.length - 1 ? '' : '&')
+        )
+    }, '')
+}

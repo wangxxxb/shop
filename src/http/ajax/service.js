@@ -1,3 +1,8 @@
+import md5 from 'md5'
+import { obj2str } from '@/utils'
+import settings from '@/settings'
+import qs from 'qs'
+
 export default class Service {
     constructor($axios, $configs) {
         // 挂载axios
@@ -20,18 +25,50 @@ export default class Service {
         // requst 拦截器
         service.interceptors.request.use(
             (config) => {
+                const { method, data = {}, params = {} } = config
+                const isPostOrPut = method === 'post' || method === 'put'
+
+                if (config.md5) {
+                    let signData = !isPostOrPut
+                        ? obj2str(params)
+                        : obj2str(data)
+
+                    signData += `&key=${settings.md5Key}`
+                    const sign = md5(signData)
+
+                    if (!isPostOrPut) {
+                        params.sign = sign
+                    } else {
+                        data.sign = sign
+                    }
+                }
+                if (isPostOrPut) config.data = qs.stringify(data)
                 return config
             },
-            (error) => {
-                return Promise.reject(error)
-            }
+            (error) => Promise.reject(error)
         )
 
         // response 拦截器
         service.interceptors.response.use(
-            (response) => {
-                return response
+            async (response) => {
+                const { data, status } = response
+                // 目前统一判断400以下的请求，不考虑登陆过期以及支付错误等信息
+                if (status < 400 && data.Successed) {
+                    return {
+                        success: true,
+                        data: data.Data,
+                        msg: data.Message
+                    }
+                } else {
+                    // 暂时先返回出去
+                    return {
+                        success: false,
+                        data: data.Data,
+                        msg: data.Message
+                    }
+                }
             },
+            // 只考虑处理内部以及网络错误
             async (error) => {
                 let msg = ''
                 // 断网 或者 请求超时 状态
