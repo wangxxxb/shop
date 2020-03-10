@@ -1,7 +1,7 @@
 <template>
     <div class="goods-item">
         <div class="img-content">
-            <img src="../assets/img/bannner.png" />
+            <img :src="goodsInfo.Picture" />
         </div>
         <div class="info-content">
             <div class="goods-name">
@@ -17,13 +17,11 @@
                     </span>
                 </div>
                 <div class="count-controller">
-                    <van-stepper
-                        disabled-input
-                        :value="value"
-                        async-change
-                        @change="onChange"
-                        min="0"
-                        button-size="22px"
+                    <goods-stepper
+                        :value="goodsInfo.selectedCounts"
+                        :on-change="onChange"
+                        :min="0"
+                        :max="goodsInfo.Count"
                     />
                 </div>
             </div>
@@ -33,27 +31,31 @@
 </template>
 
 <script>
-import { Stepper } from 'vant'
+import GoodsStepper from '@/components/goods-stepper'
 
 export default {
     name: 'goods-item',
     components: {
-        [Stepper.name]: Stepper
+        [GoodsStepper.name]: GoodsStepper
     },
     props: {
         goodsInfo: {
             type: Object,
             default: () => {}
-        }
-    },
-    data() {
-        return {
-            value: 0
+        },
+        setCartGood: {
+            type: Function,
+            default: () => () => {}
         }
     },
     methods: {
         onChange(value) {
-            this.value = value
+            const { Count, selectedCounts, ...rest } = this.goodsInfo // eslint-disable-line
+
+            this.setCartGood({
+                goods: rest,
+                isIncrease: value === 1
+            })
         }
     }
 }

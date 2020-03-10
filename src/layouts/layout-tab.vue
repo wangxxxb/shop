@@ -1,5 +1,5 @@
 <template>
-    <div :class="[hasGoods && 'bottom-blank', 'layout-main']">
+    <div class="layout-main">
         <main class="content">
             <slot />
         </main>
@@ -14,18 +14,13 @@ export default {
     name: 'layout-tab',
     components: {
         [Tabbar.name]: Tabbar
-    },
-    data() {
-        return {
-            hasGoods: true
-        }
     }
 }
 </script>
 
 <style lang="less" scoped>
 .layout-main {
-    padding: 10px 0 50px 0;
+    padding-top: 10px;
     .content {
         padding-bottom: 50px;
     }

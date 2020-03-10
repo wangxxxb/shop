@@ -4,13 +4,7 @@
         <home-banner />
         <home-category />
         <goods-list />
-        <home-banner />
-        <home-banner />
-        <home-banner />
-        <home-banner />
-        <home-banner />
-        <home-banner />
-        <home-banner />
+        <goods-submit-bar />
     </layout-tab>
 </template>
 
@@ -20,6 +14,7 @@ import IndexHeader from '@/components/home-header'
 import Banner from '@/components/home-banner'
 import Category from '@/components/home-category'
 import GoodsList from '@/components/goods-list'
+import GoodsSubmitBar from '@/components/goods-submit-bar'
 import { mapActions } from 'vuex'
 
 export default {
@@ -28,7 +23,8 @@ export default {
         [IndexHeader.name]: IndexHeader,
         [Banner.name]: Banner,
         [Category.name]: Category,
-        [GoodsList.name]: GoodsList
+        [GoodsList.name]: GoodsList,
+        [GoodsSubmitBar.name]: GoodsSubmitBar
     },
     async created() {
         await this.getGoodsCategoryList()

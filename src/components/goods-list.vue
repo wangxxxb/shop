@@ -1,15 +1,16 @@
 <template>
-    <div class="goods-list">
+    <div :class="[cartGoodsCounts > 0 ? 'show-blank' : '', 'goods-list']">
         <goods-item
             v-for="item in goodsList"
             :key="`key-${item.Id}`"
             :goods-info="item"
+            :set-cart-good="setCartGood"
         />
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import GoodsItem from '@/components/goods-item'
 
 export default {
@@ -18,7 +19,10 @@ export default {
         [GoodsItem.name]: GoodsItem
     },
     computed: {
-        ...mapState('goods', ['goodsList'])
+        ...mapGetters('goods', ['goodsList', 'cartGoodsCounts'])
+    },
+    methods: {
+        ...mapActions('goods', ['setCartGood'])
     }
 }
 </script>
@@ -29,5 +33,8 @@ export default {
     border: 1px solid #ebefe0;
     border-radius: 10px;
     padding: 0 20px;
+    &.show-blank {
+        margin-bottom: 50px;
+    }
 }
 </style>

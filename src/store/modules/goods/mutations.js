@@ -10,10 +10,23 @@ export default {
     [TYPES.SET_ACTIVE_CATEGORY](state, { activeCategoryId }) {
         state.activeCategoryId = activeCategoryId
     },
-    [TYPES.SET_CART_GOODS](state, { goods, counts = 1 }) {
-        console.log(state)
-        console.log(goods)
-        console.log(counts)
-        // state.cartGoodsList = [...state.cartGoodsList, goods]
+    [TYPES.SET_CART_GOODS](state, { goods, isIncrease }) {
+        const index = state.cartGoodsList.findIndex((item) => {
+            return item.Id === goods.Id
+        })
+
+        if (isIncrease) {
+            if (index !== -1) {
+                state.cartGoodsList[index].counts++
+            } else {
+                state.cartGoodsList.push({ ...goods, counts: 1 })
+            }
+        } else {
+            if (index !== -1) {
+                if (--state.cartGoodsList[index].counts === 0) {
+                    state.cartGoodsList.splice(index, 1)
+                }
+            }
+        }
     }
 }

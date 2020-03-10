@@ -33,5 +33,12 @@ export default {
         })
 
         dispatch('getGoodsList', id)
+    },
+    setCartGood({ commit }, { goods, isIncrease }) {
+        commit({
+            type: TYPES.SET_CART_GOODS,
+            goods,
+            isIncrease
+        })
     }
 }
