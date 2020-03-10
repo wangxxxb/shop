@@ -19,8 +19,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { SubmitBar, Icon, Tag } from 'vant'
+import { setLocal } from '@/utils'
+import { CART } from '@/constants/cart'
 
 export default {
     name: 'goods-submit-bar',
@@ -30,11 +32,13 @@ export default {
         [Tag.name]: Tag
     },
     computed: {
-        ...mapGetters('goods', ['cartGoodsCounts', 'cartGoodsTotalPrice'])
+        ...mapGetters('goods', ['cartGoodsCounts', 'cartGoodsTotalPrice']),
+        ...mapState('goods', ['cartGoodsList'])
     },
     methods: {
         onSubmit() {
-            console.log(this.cartGoodsTotalPrice)
+            setLocal(CART, JSON.stringify(this.cartGoodsList))
+            this.$router.push('/payment')
         }
     }
 }

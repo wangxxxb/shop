@@ -1,9 +1,13 @@
 import * as globalTypes from './global'
+import * as payTypes from './pay'
+import * as cartTypes from './cart'
 
 const TYPES = {
-    globalTypes
+    globalTypes,
+    payTypes,
+    cartTypes
 }
 
-export { globalTypes }
+export { globalTypes, payTypes, cartTypes }
 
 export default TYPES

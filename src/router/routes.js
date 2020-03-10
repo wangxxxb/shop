@@ -32,6 +32,13 @@ export default [
         }
     },
     {
+        name: 'payment',
+        component: () => import('@/views/Payment'),
+        meta: {
+            title: '支付'
+        }
+    },
+    {
         name: '404',
         component: () => import('@/views/404'),
         meta: {
