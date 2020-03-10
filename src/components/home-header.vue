@@ -1,23 +1,28 @@
 <template>
     <div class="index-header">
         <h1 class="room-location">
-            香格里拉大酒店——707号房
+            {{ storeInfo.hotelName }}—{{ storeInfo.roomName }}号房
         </h1>
         <div class="tel">
             前台电话
             <span>
-                0755-8889889
+                {{ storeInfo.phoneNum1 }}
             </span>
             <span>
-                0755-8889889
+                {{ storeInfo.phoneNum2 }}
             </span>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    name: 'home-header'
+    name: 'home-header',
+    computed: {
+        ...mapState(['storeInfo'])
+    }
 }
 </script>
 

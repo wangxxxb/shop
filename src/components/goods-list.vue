@@ -1,12 +1,25 @@
 <template>
     <div class="goods-list">
-        商品列表
+        <goods-item
+            v-for="item in goodsList"
+            :key="`key-${item.Id}`"
+            :goods-info="item"
+        />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import GoodsItem from '@/components/goods-item'
+
 export default {
-    name: 'goods-list'
+    name: 'goods-list',
+    components: {
+        [GoodsItem.name]: GoodsItem
+    },
+    computed: {
+        ...mapState('goods', ['goodsList'])
+    }
 }
 </script>
 

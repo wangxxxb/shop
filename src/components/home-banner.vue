@@ -1,14 +1,20 @@
 <template>
-    <a class="banner" href="#">
-        <img src="../assets/img/bannner.png" />
+    <a class="banner" :href="storeInfo.bannerHref">
+        <img :src="storeInfo.bannerSrc" />
     </a>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    name: 'home-banner'
+    name: 'home-banner',
+    computed: {
+        ...mapState(['storeInfo'])
+    }
 }
 </script>
+
 <style lang="less" scoped>
 .banner {
     display: block;

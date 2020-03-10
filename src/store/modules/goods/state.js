@@ -1,4 +1,6 @@
 export default {
-    category: [],
-    goodsList: []
+    categoryList: [],
+    goodsList: [],
+    activeCategoryId: null,
+    cartGoodsList: []
 }

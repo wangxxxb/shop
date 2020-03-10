@@ -31,11 +31,10 @@ export default {
         [GoodsList.name]: GoodsList
     },
     async created() {
-        await this.getGoodsCategory()
-        this.getGoodsList()
+        await this.getGoodsCategoryList()
     },
     methods: {
-        ...mapActions('goods', ['getGoodsCategory', 'getGoodsList'])
+        ...mapActions('goods', ['getGoodsCategoryList'])
     }
 }
 </script>
