@@ -51,14 +51,16 @@ export default {
     },
     data() {
         return {
-            paymentType: this.browserType
+            paymentType: null
         }
     },
+    created() {
+        this.paymentType = this.paymentEnv
+    },
     methods: {
-        ...mapActions('goods', ['aliPay']),
+        ...mapActions('goods', ['pay']),
         onSubmit() {
-            this.aliPay()
-            console.log(this.cartGoodsTotalPrice)
+            this.pay(this.paymentType)
         }
     }
 }

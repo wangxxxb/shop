@@ -1,9 +1,11 @@
 import * as TYPES from './mutation-types'
 import { getGoodsCategory, getGoodsList } from '@/http/request/goods'
-import { aliPay } from '@/http/request/pay'
+import { aliPay, weChatPay } from '@/http/request/pay'
 import { TEST_GOODS } from '@/constants/pay'
 import { CART } from '@/constants/cart'
+import { WEIXIN, ALI } from '@/constants/global'
 import { clearLocal } from '@/utils'
+import { callpay } from '@/utils/pay'
 
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
@@ -45,7 +47,8 @@ export default {
             isIncrease
         })
     },
-    async aliPay({ rootState }) {
+    pay({ rootState, dispatch }, method) {
+        alert(method)
         const idDev = process.env.VUE_APP_ENV === 'development'
         const { agent, hotelId, userId, roomId } = rootState.userInfo
 
@@ -59,6 +62,18 @@ export default {
             total_fee: idDev ? 10 : 10
         }
 
+        switch (method) {
+            case ALI:
+                dispatch('aliPay', params)
+                break
+            case WEIXIN:
+                dispatch('weChatPay', params)
+                break
+            default:
+                break
+        }
+    },
+    async aliPay(context, params) {
         const res = await aliPay(params)
 
         if (res) {
@@ -72,6 +87,19 @@ export default {
             submit.querySelector('form').submit()
 
             clearLocal(CART)
+        }
+    },
+    async weChatPay(context, params) {
+        const res = await weChatPay(params)
+        if (res) {
+            callpay(
+                res.appId,
+                res.timeStamp,
+                res.nonceStr,
+                res.package,
+                res.signType,
+                res.paySign
+            )
         }
     }
 }

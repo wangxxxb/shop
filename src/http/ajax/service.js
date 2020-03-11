@@ -52,6 +52,17 @@ export default class Service {
         service.interceptors.response.use(
             async (response) => {
                 const { data, status } = response
+                // 特殊处理微信支付返回的数据，后端数据处理不规范
+                if (response.config.url === '/H5Pay/WechatOrder') {
+                    const { Message: msg, Successed: success, ...rest } = data
+
+                    return {
+                        success,
+                        data: rest,
+                        msg
+                    }
+                }
+
                 // 目前统一判断400以下的请求，不考虑登陆过期以及支付错误等信息
                 if (status < 400 && data.Successed) {
                     return {

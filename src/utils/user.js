@@ -1,16 +1,17 @@
 import { USER_INFO_KEYMAP, USER_INFO } from '@/constants/global'
-import { setLocal, getLocal, clearLocal } from '@/utils'
+import { setLocal, getLocal, clearLocal, getURLParams } from '@/utils'
 import store from '@/store'
 import { SET_USER_INFO } from '@/store/global/mutation-types'
 
 /**
  * 获取用户信息，该函数建议只执行一次
  * @export
- * @param {*} [queryObj={}] router query
  * @returns 返回处理好之后的query
  */
-export function getUserInfo(queryObj = {}) {
-    const backupQuery = { ...queryObj }
+export function getUserInfo() {
+    const urlSearch = decodeURIComponent(window.location.search)
+    const backupQuery = getURLParams(urlSearch)
+
     let userInfo = {}
     // 设置开关，判断是否是带有用户信息进入
     let flag = false

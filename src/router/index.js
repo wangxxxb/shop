@@ -12,12 +12,15 @@ routes.forEach((route) => {
     route.path = route.path || '/' + (route.name || '')
 })
 
-const router = new Router({ routes })
+const router = new Router({
+    routes,
+    mode: 'history' // 直接使用history模式
+})
 
 const initQuery = once(getUserInfo)
 
 router.beforeEach((to, from, next) => {
-    const backupQuery = (initQuery && initQuery(to.query)) || null
+    const backupQuery = (initQuery && initQuery()) || null
     const accessData = store.getters.isAccessEnter
 
     if (!accessData.access) {
