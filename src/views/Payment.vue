@@ -8,12 +8,20 @@
 <script>
 import CartList from '@/components/cart-list'
 import PaymentMethod from '@/components/payment-method'
+import store from '@/store'
 
 export default {
     name: 'Payment',
     components: {
         [CartList.name]: CartList,
         [PaymentMethod.name]: PaymentMethod
+    },
+    beforeRouteEnter(to, from, next) {
+        if (store.getters['goods/cartGoodsCounts'] > 0) {
+            next()
+        } else {
+            next('/')
+        }
     }
 }
 </script>

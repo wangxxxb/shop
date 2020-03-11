@@ -2,6 +2,8 @@ import * as TYPES from './mutation-types'
 import { getGoodsCategory, getGoodsList } from '@/http/request/goods'
 import { aliPay } from '@/http/request/pay'
 import { TEST_GOODS } from '@/constants/pay'
+import { CART } from '@/constants/cart'
+import { clearLocal } from '@/utils'
 
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
@@ -67,7 +69,9 @@ export default {
 
             document.body.appendChild(submit)
 
-            console.log(submit.querySelector('form'))
+            submit.querySelector('form').submit()
+
+            clearLocal(CART)
         }
     }
 }
