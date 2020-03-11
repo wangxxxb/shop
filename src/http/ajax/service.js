@@ -81,6 +81,8 @@ export default class Service {
             },
             // 只考虑处理内部以及网络错误
             async (error) => {
+                console.log(error.response)
+
                 let msg = ''
                 // 断网 或者 请求超时 状态
                 if (!error.response) {
