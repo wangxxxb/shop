@@ -49,7 +49,7 @@ export default {
     },
     data() {
         return {
-            gradeStar: 0,
+            gradeStar: 5,
             content: ''
         }
     },
@@ -80,6 +80,15 @@ export default {
                 content
             } = this
 
+            if (!content.trim()) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '评价不能少于5个字哦'
+                })
+
+                return
+            }
+
             const params = {
                 agentId,
                 content: encodeURI(content),
@@ -89,14 +98,19 @@ export default {
                 roomNo
             }
 
-            const res = await pushEvalution(params)
+            const { success, msg } = await pushEvalution(params)
 
-            if (res) {
+            if (success) {
                 Dialog.alert({
                     title: '评价酒店',
                     message: '感谢您的评价与建议，有您的评价我们会更加努力！'
                 }).then(() => {
                     this.$router.push('/')
+                })
+            } else {
+                Dialog.alert({
+                    title: '提示',
+                    message: msg
                 })
             }
         }
