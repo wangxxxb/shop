@@ -6,6 +6,7 @@ import { CART } from '@/constants/cart'
 import { WEIXIN, ALI } from '@/constants/global'
 import { clearLocal } from '@/utils'
 import { callpay } from '@/utils/pay'
+import { Dialog } from 'vant'
 
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
@@ -73,32 +74,42 @@ export default {
         }
     },
     async aliPay(context, params) {
-        const res = await aliPay(params)
+        const { success, data } = await aliPay(params)
 
-        if (res) {
+        if (success) {
             const submit = document.createElement('div')
             submit.style.display = 'none'
             submit.setAttribute('id', 'submit-pay')
-            submit.innerHTML = res
+            submit.innerHTML = data
 
             document.body.appendChild(submit)
 
             submit.querySelector('form').submit()
 
             clearLocal(CART)
+        } else {
+            Dialog({
+                title: '提示',
+                message: data
+            })
         }
     },
     async weChatPay(context, params) {
-        const res = await weChatPay(params)
-        if (res) {
+        const { success, data, msg } = await weChatPay(params)
+        if (success) {
             callpay(
-                res.appId,
-                res.timeStamp,
-                res.nonceStr,
-                res.package,
-                res.signType,
-                res.paySign
+                data.appId,
+                data.timeStamp,
+                data.nonceStr,
+                data.package,
+                data.signType,
+                data.paySign
             )
+        } else {
+            Dialog({
+                title: '提示',
+                message: msg
+            })
         }
     }
 }
