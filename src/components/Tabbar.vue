@@ -26,6 +26,12 @@ export default {
             menu: MENU
         }
     },
+    created() {
+        const index = MENU.findIndex(
+            ({ routerName }) => routerName === this.$router.currentRoute.name
+        )
+        if (index !== -1) this.active = index
+    },
     methods: {
         onChange(index) {
             this.$router.push(this.menu[index].link)

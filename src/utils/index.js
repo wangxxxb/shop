@@ -279,7 +279,7 @@ export function obj2str(obj) {
     return Object.keys(obj).reduce((prev, current, index, arr) => {
         return (
             prev +
-            current +
+            current.toLocaleLowerCase() +
             '=' +
             obj[current] +
             (index === arr.length - 1 ? '' : '&')

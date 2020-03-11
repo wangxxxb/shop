@@ -48,7 +48,6 @@ export default {
         })
     },
     pay({ rootState, dispatch }, method) {
-        alert(method)
         const idDev = process.env.VUE_APP_ENV === 'development'
         const { agent, hotelId, userId, roomId } = rootState.userInfo
 
