@@ -12,8 +12,8 @@ export default {
             endTime: moment()
                 .add(1, 'days')
                 .format('YYYY-MM-DD'),
+            pageIndex: isRefresh ? 1 : pageIndex + 1,
             pageSize,
-            pageIndex,
             userId
         }
 
@@ -22,7 +22,7 @@ export default {
         if (success) {
             commit({
                 type: TYPES.SET_ORDER_LIST,
-                orderList: data,
+                data,
                 isRefresh
             })
         }

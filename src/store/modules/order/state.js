@@ -1,6 +1,6 @@
 export default {
     orderList: [],
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 10,
-    total: 0
+    totalCount: 0
 }

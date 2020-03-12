@@ -7,8 +7,15 @@ import apis from '../apis'
  * @param {*} params
  */
 export async function getOrderList(params) {
-    const res = await ajax.getList(apis.order.getOrderList, params, {
-        md5: true
-    })
-    return res
+    const { success, data } = await ajax.getList(
+        apis.order.getOrderList,
+        params,
+        {
+            md5: true
+        }
+    )
+    return {
+        success,
+        data
+    }
 }
