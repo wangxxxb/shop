@@ -25,8 +25,11 @@
             <div class="order-status">
                 {{ '订单状态：' + order.OrderTypeName }}
             </div>
-            <van-button type="default" size="small">
+            <van-button @click="deleteOrder" type="default" size="small">
                 删除订单
+            </van-button>
+            <van-button @click="refundOrder" type="default" size="small">
+                申请退款
             </van-button>
         </div>
     </div>
@@ -34,6 +37,8 @@
 
 <script>
 import { Card, Button } from 'vant'
+import { SHOW_ORDER_REFUND_DIALOG } from '@/constants/bus'
+
 export default {
     name: 'order-item',
     components: {
@@ -49,6 +54,12 @@ export default {
     computed: {
         time() {
             return this.order.OrderTime.replace(/[^0-9]/gi, '')
+        }
+    },
+    methods: {
+        deleteOrder() {},
+        refundOrder() {
+            this.$bus.$emit(SHOW_ORDER_REFUND_DIALOG, 'test')
         }
     }
 }

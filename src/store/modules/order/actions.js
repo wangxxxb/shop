@@ -26,5 +26,10 @@ export default {
                 isRefresh
             })
         }
+    },
+    clearOrderList({ commit }) {
+        commit({
+            type: TYPES.CLEAR_ORDER_LIST
+        })
     }
 }

@@ -11,5 +11,13 @@ export default {
                 ? orderList
                 : [...state.orderList, ...orderList]
         })
+    },
+    [TYPES.CLEAR_ORDER_LIST](state) {
+        Object.assign(state, {
+            orderList: [],
+            pageIndex: 0,
+            pageSize: 10,
+            totalCount: 0
+        })
     }
 }
