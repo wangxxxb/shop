@@ -77,7 +77,8 @@ module.exports = {
                     'font-size-md': '15px',
                     'font-size-lg': '17px',
                     'main-color-prime': '#199ed8',
-                    'main-color-text-default': '#199ed8'
+                    'main-color-text-default': '#199ed8',
+                    'main-bgco': '#6595f4'
                 }
             }
         }

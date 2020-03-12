@@ -28,7 +28,7 @@ export default {
     },
     created() {
         const index = MENU.findIndex(
-            ({ routerName }) => routerName === this.$router.currentRoute.name
+            ({ routerName }) => routerName === this.$route.name
         )
         if (index !== -1) this.active = index
     },

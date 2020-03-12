@@ -49,4 +49,8 @@ export default class Ajax extends Service {
     delete = async (url, configExt = {}) => {
         return await this.reseponse({ method: 'delete', url, configExt })
     }
+
+    getList = async (url, params = {}, configExt = {}) => {
+        return await this.response({ url, params, configExt })
+    }
 }

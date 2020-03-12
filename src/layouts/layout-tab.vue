@@ -20,9 +20,8 @@ export default {
 
 <style lang="less" scoped>
 .layout-main {
-    padding-top: 10px;
     .content {
-        padding-bottom: 50px;
+        padding: 10px 0 50px;
     }
 }
 </style>

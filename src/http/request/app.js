@@ -15,7 +15,7 @@ export async function getStoreInfo() {
             StoreLogo: logo,
             IndexBannerPic: bannerSrc,
             IndexBannerAddress: bannerHref,
-            ComplaintPhone: phone,
+            ComplaintPhone: complaintPhone,
             OrdeMessage: paySuccessMsg,
             WechatAddress: wxAddress
         } = data[0]
@@ -25,7 +25,7 @@ export async function getStoreInfo() {
             logo,
             bannerSrc,
             bannerHref,
-            phone,
+            complaintPhone,
             paySuccessMsg,
             wxAddress
         }
