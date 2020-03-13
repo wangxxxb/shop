@@ -6,8 +6,6 @@ function resolve(dir) {
     return path.join(__dirname, dir)
 }
 
-console.log(process.env.VUE_APP_ENV)
-
 module.exports = {
     assetsDir: 'static',
     outputDir: 'dist',
