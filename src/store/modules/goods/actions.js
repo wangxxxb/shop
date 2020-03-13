@@ -50,14 +50,12 @@ export default {
     },
     //TODO: 支付进行环境区分 目前还存在浮点数计算问题
     pay({ rootState, dispatch, state, getters }, method) {
-        const idDev = process.env.VUE_APP_ENV === 'development'
+        const isProd = process.env.VUE_APP_ENV === 'production'
 
         let goods = '',
             total_fee = 0
-        if (idDev) {
-            goods = decodeURIComponent(TEST_GOODS)
-            total_fee = 10
-        } else {
+
+        if (isProd) {
             goods = JSON.stringify(
                 state.cartGoodsList.reduce((prev, cur) => {
                     return prev.concat({
@@ -68,6 +66,9 @@ export default {
                 }, [])
             )
             total_fee = getters.cartGoodsTotalPrice * 100
+        } else {
+            goods = decodeURIComponent(TEST_GOODS)
+            total_fee = 10
         }
 
         const { agent, hotelId, userId, roomId } = rootState.userInfo
