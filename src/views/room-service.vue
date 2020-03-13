@@ -68,7 +68,7 @@ export default {
     methods: {
         ...mapActions('service', ['sendMsg']),
         async submit() {
-            await this.sendMsg(this.currentMsg)
+            this.sendMsg(this.currentMsg)
             this.currentMsg = ''
         }
     }
