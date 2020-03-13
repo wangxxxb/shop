@@ -21,7 +21,7 @@ export default class Service {
             'application/json;charset=UTF-8'
 
         // 设置跨域携带用户凭证
-        service.defaults.withCredentials = true
+        // service.defaults.withCredentials = true
         // requst 拦截器
         service.interceptors.request.use(
             (config) => {

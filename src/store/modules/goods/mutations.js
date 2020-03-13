@@ -28,5 +28,8 @@ export default {
                 }
             }
         }
+    },
+    [TYPES.CLEAR_CART](state) {
+        state.cartGoodsList = []
     }
 }

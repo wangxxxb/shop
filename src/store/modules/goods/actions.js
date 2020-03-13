@@ -7,6 +7,7 @@ import { WEIXIN, ALI } from '@/constants/global'
 import { clearLocal } from '@/utils'
 import { callpay } from '@/utils/pay'
 import { Dialog } from 'vant'
+import { router } from '@/router'
 
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
@@ -94,7 +95,7 @@ export default {
                 break
         }
     },
-    async aliPay(context, params) {
+    async aliPay({ commit }, params) {
         const { success, data } = await aliPay(params)
 
         if (success) {
@@ -108,6 +109,10 @@ export default {
             submit.querySelector('form').submit()
 
             clearLocal(CART)
+
+            commit({
+                type: TYPES.CLEAR_CART
+            })
         } else {
             Dialog({
                 title: '提示',
@@ -115,7 +120,7 @@ export default {
             })
         }
     },
-    async weChatPay(context, params) {
+    async weChatPay({ commit }, params) {
         const { success, data, msg } = await weChatPay(params)
         if (success) {
             callpay(
@@ -124,7 +129,14 @@ export default {
                 data.nonceStr,
                 data.package,
                 data.signType,
-                data.paySign
+                data.paySign,
+                () => {
+                    commit({
+                        type: TYPES.CLEAR_CART
+                    })
+                    clearLocal(CART)
+                    router.push('/')
+                }
             )
         } else {
             Dialog({
