@@ -6,17 +6,27 @@ function resolve(dir) {
     return path.join(__dirname, dir)
 }
 
+console.log(process.env.VUE_APP_ENV)
+
 module.exports = {
     assetsDir: 'static',
     outputDir: 'dist',
     publicPath: '/', // 可能会使用函数代替
     productionSourceMap: false,
-    configureWebpack: {
-        name: defaultSettings.title,
-        resolve: {
-            alias: {
-                '@': resolve('src')
-            }
+    configureWebpack: (config) => {
+        config.name = defaultSettings.title
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@': resolve('src')
+        }
+
+        if (process.env.VUE_APP_ENV === 'production') {
+            config.optimization.minimizer[0].options.terserOptions.compress.warnings = false
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true
+            config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = [
+                'console.log'
+            ]
         }
     },
     chainWebpack(config) {
