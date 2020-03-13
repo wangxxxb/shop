@@ -74,11 +74,11 @@ export default {
                 title: '提示',
                 message: '确定删除该订单吗？'
             }).then(() => {
-                this.deleteOrder(this.order.OrderNo)
+                this.deleteOrder(this.order.OrderDelUrl)
             })
         },
         refundOrder() {
-            this.$bus.$emit(SHOW_ORDER_REFUND_DIALOG, 'test')
+            this.$bus.$emit(SHOW_ORDER_REFUND_DIALOG, this.order.OrderBackUrl)
         }
     }
 }

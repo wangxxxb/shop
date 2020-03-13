@@ -1,6 +1,7 @@
 import * as TYPES from './mutation-types'
-import { getOrderList, deleteOrder } from '@/http/request/order'
+import { getOrderList, deleteOrder, refundOrder } from '@/http/request/order'
 import moment from 'moment'
+import { Dialog } from 'vant'
 
 export default {
     async getOrderList({ commit, state, rootState }, isRefresh = false) {
@@ -32,13 +33,26 @@ export default {
             type: TYPES.CLEAR_ORDER_LIST
         })
     },
-    async deleteOrder({ dispatch, rootState }, orderNo) {
-        const { userId } = rootState.userInfo
-        await deleteOrder({
-            openId: userId,
-            orderNo,
-            tcl: moment().format('X')
+    async deleteOrder({ dispatch }, url) {
+        const { msg } = await deleteOrder(url)
+
+        Dialog.alert({
+            title: '提示',
+            message: msg
         })
+
+        dispatch('getOrderList', true)
+    },
+    async refundOrder({ dispatch }, { url, desc }) {
+        const { msg } = await refundOrder(url, {
+            desc: encodeURI(desc)
+        })
+
+        Dialog.alert({
+            title: '提示',
+            message: msg
+        })
+
         dispatch('getOrderList', true)
     }
 }

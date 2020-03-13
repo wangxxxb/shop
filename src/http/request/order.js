@@ -20,13 +20,20 @@ export async function getOrderList(params) {
     }
 }
 
-export async function deleteOrder(params) {
-    const { success, data, msg } = await ajax.getList(
-        apis.order.deleteOrder,
-        params,
-        {
-            md5: true
-        }
-    )
-    console.log(success, data, msg)
+export async function deleteOrder(url) {
+    const { success, msg } = await ajax.get(url)
+
+    return {
+        success,
+        msg
+    }
+}
+
+export async function refundOrder(url, params) {
+    const { success, msg } = await ajax.get(url, params)
+
+    return {
+        success,
+        msg
+    }
 }

@@ -1,4 +1,3 @@
 export default {
-    getOrderList: '/Client/GetOrderUserList',
-    deleteOrder: '/Client/OrderUserDel'
+    getOrderList: '/Client/GetOrderUserList'
 }

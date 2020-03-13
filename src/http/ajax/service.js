@@ -81,8 +81,6 @@ export default class Service {
             },
             // 只考虑处理内部以及网络错误
             async (error) => {
-                console.log(error.response)
-
                 let msg = ''
                 // 断网 或者 请求超时 状态
                 if (!error.response) {
@@ -100,11 +98,9 @@ export default class Service {
                     msg = '请求失败，请稍后再试'
                 }
                 return Promise.reject({
-                    data: {
-                        success: false,
-                        data: null,
-                        msg
-                    }
+                    success: false,
+                    data: null,
+                    msg
                 })
             }
         )

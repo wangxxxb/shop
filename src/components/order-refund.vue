@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { Dialog, RadioGroup, Radio, Cell, CellGroup, Field } from 'vant'
 import { SHOW_ORDER_REFUND_DIALOG } from '@/constants/bus'
 
@@ -69,17 +70,31 @@ export default {
             show: false,
             radio: '0',
             radioMap: ['送货时间太长，未收到货', '不想要了'],
-            reason: ''
+            reason: '',
+            url: ''
+        }
+    },
+    computed: {
+        desc() {
+            return this.radio === '2' ? this.reason : this.radioMap[+this.radio]
         }
     },
     mounted() {
-        this.$bus.$on(SHOW_ORDER_REFUND_DIALOG, () => {
+        this.$bus.$on(SHOW_ORDER_REFUND_DIALOG, (url) => {
             this.show = true
+            this.url = url
         })
     },
     methods: {
+        ...mapActions('order', ['refundOrder']),
         confirm() {
             if (this.radio === '2' && !this.reason.trim()) return
+
+            if (this.url)
+                this.refundOrder({
+                    url: this.url,
+                    desc: this.desc
+                })
         },
         beforeClose(action, done) {
             if (this.radio === '2' && !this.reason.trim()) {
