@@ -2,6 +2,7 @@
     <van-dialog
         v-model="show"
         @confirm="confirm"
+        @closed="closed"
         show-cancel-button
         :before-close="beforeClose"
         title="申请退款"
@@ -105,6 +106,11 @@ export default {
                 })
             }
             done()
+        },
+        closed() {
+            this.reason = ''
+            this.radio = '0'
+            this.url = ''
         }
     }
 }
