@@ -25,10 +25,20 @@
             <div class="order-status">
                 {{ '订单状态：' + order.OrderTypeName }}
             </div>
-            <van-button @click="deleteOrder" type="default" size="small">
+            <van-button
+                v-if="order.OrderType === 6 || order.OrderType === 4"
+                @click="delOrder"
+                type="default"
+                size="small"
+            >
                 删除订单
             </van-button>
-            <van-button @click="refundOrder" type="default" size="small">
+            <van-button
+                v-if="order.OrderType === 3"
+                @click="refundOrder"
+                type="default"
+                size="small"
+            >
                 申请退款
             </van-button>
         </div>
@@ -36,7 +46,8 @@
 </template>
 
 <script>
-import { Card, Button } from 'vant'
+import { mapActions } from 'vuex'
+import { Card, Button, Dialog } from 'vant'
 import { SHOW_ORDER_REFUND_DIALOG } from '@/constants/bus'
 
 export default {
@@ -57,7 +68,15 @@ export default {
         }
     },
     methods: {
-        deleteOrder() {},
+        ...mapActions('order', ['deleteOrder']),
+        delOrder() {
+            Dialog.confirm({
+                title: '提示',
+                message: '确定删除该订单吗？'
+            }).then(() => {
+                this.deleteOrder(this.order.OrderNo)
+            })
+        },
         refundOrder() {
             this.$bus.$emit(SHOW_ORDER_REFUND_DIALOG, 'test')
         }

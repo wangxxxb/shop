@@ -1,5 +1,5 @@
 import * as TYPES from './mutation-types'
-import { getOrderList } from '@/http/request/order'
+import { getOrderList, deleteOrder } from '@/http/request/order'
 import moment from 'moment'
 
 export default {
@@ -31,5 +31,14 @@ export default {
         commit({
             type: TYPES.CLEAR_ORDER_LIST
         })
+    },
+    async deleteOrder({ dispatch, rootState }, orderNo) {
+        const { userId } = rootState.userInfo
+        await deleteOrder({
+            openId: userId,
+            orderNo,
+            tcl: moment().format('X')
+        })
+        dispatch('getOrderList', true)
     }
 }

@@ -19,3 +19,14 @@ export async function getOrderList(params) {
         data
     }
 }
+
+export async function deleteOrder(params) {
+    const { success, data, msg } = await ajax.getList(
+        apis.order.deleteOrder,
+        params,
+        {
+            md5: true
+        }
+    )
+    console.log(success, data, msg)
+}

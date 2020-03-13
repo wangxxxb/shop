@@ -1,5 +1,11 @@
 <template>
-    <van-dialog v-model="show" show-cancel-button title="申请退款">
+    <van-dialog
+        v-model="show"
+        @confirm="confirm"
+        show-cancel-button
+        :before-close="beforeClose"
+        title="申请退款"
+    >
         <div class="content">
             <div class="title">
                 退款原因：
@@ -10,6 +16,13 @@
                         <van-cell
                             title="送货时间太长，未收到货"
                             clickable
+                            @click="radio = '0'"
+                        >
+                            <van-radio slot="right-icon" name="0" />
+                        </van-cell>
+                        <van-cell
+                            title="不想要了"
+                            clickable
                             @click="radio = '1'"
                         >
                             <van-radio slot="right-icon" name="1" />
@@ -19,23 +32,16 @@
                             clickable
                             @click="radio = '2'"
                         >
-                            <van-radio slot="right-icon" name="2" />
-                        </van-cell>
-                        <van-cell
-                            title="不想要了"
-                            clickable
-                            @click="radio = '3'"
-                        >
                             <template slot="title">
                                 <div class="input-container">
                                     <span class="custom-title">其他原因：</span>
                                     <van-field
-                                        v-model="value"
+                                        v-model="reason"
                                         placeholder="请输入"
                                     />
                                 </div>
                             </template>
-                            <van-radio slot="right-icon" name="3" />
+                            <van-radio slot="right-icon" name="2" />
                         </van-cell>
                     </van-cell-group>
                 </van-radio-group>
@@ -61,14 +67,30 @@ export default {
     data() {
         return {
             show: false,
-            radio: '',
-            radioMap: ['送货时间太长，未收到货', '不想要了']
+            radio: '0',
+            radioMap: ['送货时间太长，未收到货', '不想要了'],
+            reason: ''
         }
     },
     mounted() {
         this.$bus.$on(SHOW_ORDER_REFUND_DIALOG, () => {
             this.show = true
         })
+    },
+    methods: {
+        confirm() {
+            if (this.radio === '2' && !this.reason.trim()) return
+        },
+        beforeClose(action, done) {
+            if (this.radio === '2' && !this.reason.trim()) {
+                done(false)
+                return Dialog.alert({
+                    title: '提示',
+                    message: '请勿输入空消息'
+                })
+            }
+            done()
+        }
     }
 }
 </script>
