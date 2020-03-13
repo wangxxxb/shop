@@ -11,7 +11,7 @@
         <div class="time">
             {{ time | formatTime('YYYY-MM-DD hh:mm:ss') }}
         </div>
-        <div class="goods-list">
+        <div class="order-goods-list">
             <van-card
                 v-for="item in order.Goods"
                 :key="item.GoodId"
@@ -109,7 +109,7 @@ export default {
     .time {
         font-size: 12px;
     }
-    .goods-list {
+    .order-goods-list {
         padding: 5px 0;
         .van-card {
             background-color: #fff;
