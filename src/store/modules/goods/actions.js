@@ -51,7 +51,7 @@ export default {
     },
     //TODO: 支付进行环境区分 目前还存在浮点数计算问题
     pay({ rootState, dispatch, state, getters }, method) {
-        const isProd = process.env.VUE_APP_ENV !== 'production'
+        const isProd = process.env.VUE_APP_ENV === 'production'
 
         let goods = '',
             total_fee = 0
@@ -109,7 +109,7 @@ export default {
                 break
         }
     },
-    async aliPay({ commit }, params) {
+    async aliPay(context, params) {
         const { success, data } = await aliPay(params)
 
         if (success) {
@@ -124,9 +124,9 @@ export default {
 
             clearLocal(CART)
 
-            commit({
-                type: TYPES.CLEAR_CART
-            })
+            // commit({
+            //     type: TYPES.CLEAR_CART
+            // })
         } else {
             Dialog({
                 title: '提示',
