@@ -2,7 +2,7 @@ import { pushRoomService } from '@/http/request/room-service'
 import { Dialog } from 'vant'
 
 const state = {
-    msgList: ['测试']
+    msgList: []
 }
 
 const TYPES = {

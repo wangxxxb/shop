@@ -25,7 +25,10 @@
             </div>
         </div>
         <div v-if="info.wxAddress || info.complaints" class="hotel-related">
-            <div v-if="info.wxAddress && info.browserType" class="follow">
+            <div
+                v-if="info.wxAddress && info.browserType === 'WEIXIN'"
+                class="follow"
+            >
                 加盟/意见反馈请关注我们
                 <a :href="info.wxAddress">
                     立即关注
