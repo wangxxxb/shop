@@ -9,7 +9,7 @@
                     @click="onClick(item.Id)"
                     plain
                     :type="activeCategoryId === item.Id ? 'primary' : 'default'"
-                    size="mini"
+                    size="small"
                 >
                     {{ item.CategoryName }}
                 </van-button>
@@ -44,8 +44,10 @@ export default {
 
 <style lang="less">
 .category {
+    margin-bottom: 10px;
     &-title {
         padding-left: 15px;
+        margin-top: 10px;
     }
     &-content {
         width: 100%;

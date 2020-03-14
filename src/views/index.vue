@@ -15,7 +15,7 @@ import Banner from '@/components/home-banner'
 import Category from '@/components/home-category'
 import GoodsList from '@/components/goods-list'
 import GoodsSubmitBar from '@/components/goods-submit-bar'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     components: {
@@ -26,8 +26,16 @@ export default {
         [GoodsList.name]: GoodsList,
         [GoodsSubmitBar.name]: GoodsSubmitBar
     },
+    computed: {
+        ...mapState({
+            title({ storeInfo }) {
+                return storeInfo.storename || ''
+            }
+        })
+    },
     async created() {
         await this.getGoodsCategoryList()
+        document.title = this.title
     },
     methods: {
         ...mapActions('goods', ['getGoodsCategoryList'])

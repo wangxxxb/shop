@@ -1,5 +1,5 @@
 module.exports = {
-    title: '酒店在线超市',
+    title: '',
     port: 8080,
     // 预留用来获取子域名路径
     getSubPath() {

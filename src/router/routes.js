@@ -5,10 +5,7 @@ export default [
     },
     {
         name: 'index',
-        component: () => import('@/views/index'),
-        meta: {
-            title: '酒店在线超市'
-        }
+        component: () => import('@/views/index')
     },
     {
         name: 'room-service',
