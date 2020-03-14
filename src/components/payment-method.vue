@@ -24,7 +24,7 @@
         </div>
         <van-submit-bar
             :disabled="!paymentType"
-            :price="cartGoodsTotalPrice * 100"
+            :price="cartGoodsTotalPrice"
             button-text="立即支付"
             @submit="onSubmit"
         />

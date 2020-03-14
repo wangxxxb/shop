@@ -21,7 +21,7 @@ export default {
         [CartGoodsItem.name]: CartGoodsItem
     },
     computed: {
-        ...mapGetters('goods', ['cartGoodsCounts', 'cartGoodsTotalPrice']),
+        ...mapGetters('goods', ['cartGoodsCounts']),
         ...mapState('goods', ['cartGoodsList'])
     }
 }

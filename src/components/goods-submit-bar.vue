@@ -2,7 +2,7 @@
     <div class="goods-submit-bar">
         <van-submit-bar
             v-show="cartGoodsCounts > 0"
-            :price="cartGoodsTotalPrice * 100"
+            :price="cartGoodsTotalPrice"
             button-text="去支付"
             @submit="onSubmit"
         >

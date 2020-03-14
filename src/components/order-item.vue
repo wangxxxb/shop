@@ -5,7 +5,7 @@
                 {{ '订单编号：' + order.OrderNo }}
             </p>
             <span class="price">
-                {{ '¥' + order.PayMoney }}
+                {{ '¥' + order.PayMoney / 100 }}
             </span>
         </div>
         <div class="time">
@@ -16,7 +16,7 @@
                 v-for="item in order.Goods"
                 :key="item.GoodId"
                 :num="item.Number"
-                :price="item.Price + '.00'"
+                :price="item.Price / 100 + '.00'"
                 :title="item.GoodName"
                 :thumb="item.GoodImgUrl"
             />

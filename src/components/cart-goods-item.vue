@@ -2,7 +2,7 @@
     <div class="cart-goods-item">
         <van-card
             :num="goodsInfo.counts"
-            :price="goodsInfo.Price + '.00'"
+            :price="goodsInfo.Price / 100 + '.00'"
             :title="goodsInfo.Name"
             :thumb="goodsInfo.Picture"
         />

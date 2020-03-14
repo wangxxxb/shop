@@ -61,13 +61,27 @@ export default {
                 state.cartGoodsList.reduce((prev, cur) => {
                     return prev.concat({
                         goodId: cur.Id,
-                        price: cur.Price * 100,
+                        price: cur.Price,
                         number: cur.counts
                     })
                 }, [])
             )
-            total_fee = getters.cartGoodsTotalPrice * 100
+            total_fee = getters.cartGoodsTotalPrice
         } else {
+            alert(
+                '真实购买商品列表' +
+                    JSON.stringify(
+                        state.cartGoodsList.reduce((prev, cur) => {
+                            return prev.concat({
+                                goodId: cur.Id,
+                                price: cur.Price,
+                                number: cur.counts
+                            })
+                        }, [])
+                    )
+            )
+            alert('真实购买商品列表（单位分）' + getters.cartGoodsTotalPrice)
+
             goods = decodeURIComponent(TEST_GOODS)
             total_fee = 10
         }

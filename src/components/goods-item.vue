@@ -13,7 +13,7 @@
                         ¥
                     </span>
                     <span class="price-integer">
-                        {{ goodsInfo.Price }}
+                        {{ goodsInfo.Price / 100 }}
                     </span>
                 </div>
                 <div class="count-controller">
