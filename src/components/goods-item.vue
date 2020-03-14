@@ -66,8 +66,8 @@ export default {
     display: flex;
     justify-content: space-between;
     .img-content {
-        width: 120px;
-        height: 80px;
+        width: 88px;
+        height: 88px;
         border-radius: 12px;
         overflow: hidden;
         img {
@@ -76,7 +76,7 @@ export default {
         }
     }
     .info-content {
-        width: calc(100% - 130px);
+        width: calc(100% - 98px);
         .goods-name {
             font-size: @font-size-md;
         }

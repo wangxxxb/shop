@@ -8,15 +8,16 @@
                 :src="info.heardImg"
             />
             <div class="info-content">
-                <div class="user-name">
-                    {{ info.nickname }}
-                </div>
+                <div class="user-name">{{ info.nickname }}</div>
                 <div class="hotel-info">
                     <span v-if="info.hotelName" class="hotel-name">
                         {{ info.hotelName + '大酒店' }}
                     </span>
+                    <span v-if="info.hotelName && info.roomId">
+                        -
+                    </span>
                     <span v-if="info.roomId" class="room-info">
-                        {{ '-' + info.roomId + '号房欢迎您' }}
+                        {{ +info.roomId + '号房欢迎您' }}
                     </span>
                     <p v-if="info.serviceTel" class="tel">
                         {{ '服务电话 ' + info.serviceTel }}
