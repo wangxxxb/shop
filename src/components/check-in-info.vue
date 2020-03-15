@@ -11,7 +11,7 @@
                 <div class="user-name">{{ info.nickname }}</div>
                 <div class="hotel-info">
                     <span v-if="info.hotelName" class="hotel-name">
-                        {{ info.hotelName + '大酒店' }}
+                        {{ info.hotelName }}
                     </span>
                     <span v-if="info.hotelName && info.roomId">
                         -
@@ -90,7 +90,7 @@ export default {
         justify-content: space-between;
 
         .info-content {
-            flex: auto;
+            width: calc(100% - 110px);
             margin-left: 10px;
             color: #ffffff;
             padding-top: 10px;
