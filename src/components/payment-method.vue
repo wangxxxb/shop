@@ -1,24 +1,21 @@
 <template>
-    <div class="payment-method">
+    <div class="payment-method" v-if="paymentEnv">
         <div class="title">请选择支付方式</div>
         <div class="content">
             <van-radio-group v-model="paymentType">
-                <div class="pay-type">
+                <div v-if="paymentEnv === 'WEIXIN'" class="pay-type">
                     <div class="pay-type-info">
                         <img src="../assets/icon/weChat.svg" />
                         <span class="pay-name">微信支付</span>
                     </div>
-                    <van-radio
-                        :disabled="paymentEnv !== 'WEIXIN'"
-                        name="WEIXIN"
-                    />
+                    <van-radio name="WEIXIN" />
                 </div>
-                <div class="pay-type">
+                <div v-if="paymentEnv === 'ALI'" class="pay-type">
                     <div class="pay-type-info">
                         <img src="../assets/icon/aliPay.svg" />
                         <span class="pay-name">支付宝支付</span>
                     </div>
-                    <van-radio :disabled="paymentEnv === 'WEIXIN'" name="ALI" />
+                    <van-radio name="ALI" />
                 </div>
             </van-radio-group>
         </div>
@@ -44,7 +41,9 @@ export default {
     computed: {
         ...mapState({
             paymentEnv({ browserType }) {
-                return browserType
+                return process.env.VUE_APP_ENV !== 'production'
+                    ? browserType || 'ALI'
+                    : browserType
             }
         }),
         ...mapGetters('goods', ['cartGoodsTotalPrice'])
