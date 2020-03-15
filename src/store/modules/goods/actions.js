@@ -12,14 +12,15 @@ import { router } from '@/router'
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
         const res = await getGoodsCategory()
+        const sortList = res.sort((a, b) => a - b)
 
         commit({
             type: TYPES.SET_GOODS_CATEGORY_LIST,
-            categoryList: res
+            categoryList: sortList
         })
 
         // 获取category列表时，默认获取第一个列表第一个选项对应的列表
-        if (res[0]) dispatch('setActiveCategory', res[0].Id)
+        if (res[0] && sortList[0]) dispatch('setActiveCategory', sortList[0].Id)
     },
     async getGoodsList({ commit, rootState }, id) {
         const { hotelId } = rootState.userInfo
