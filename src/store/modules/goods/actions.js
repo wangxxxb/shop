@@ -43,11 +43,15 @@ export default {
 
         dispatch('getGoodsList', id)
     },
-    setCartGood({ commit }, { goods, isIncrease }) {
+    setCartGood({ commit, rootState }, { goods, isIncrease }) {
+        const { hotelId, roomId } = rootState.userInfo
+        const localCartKey = `${CART}-${hotelId}-${roomId}`
+
         commit({
             type: TYPES.SET_CART_GOODS,
             goods,
-            isIncrease
+            isIncrease,
+            localCartKey
         })
     },
     //TODO: 支付进行环境区分 目前还存在浮点数计算问题
@@ -110,7 +114,7 @@ export default {
                 break
         }
     },
-    async aliPay(context, params) {
+    async aliPay({ rootState }, params) {
         const { success, data } = await aliPay(params)
 
         if (success) {
@@ -123,7 +127,10 @@ export default {
 
             submit.querySelector('form').submit()
 
-            clearLocal(CART)
+            const { hotelId, roomId } = rootState.userInfo
+            const localCartKey = `${CART}-${hotelId}-${roomId}`
+
+            clearLocal(localCartKey)
 
             // commit({
             //     type: TYPES.CLEAR_CART
@@ -135,7 +142,7 @@ export default {
             })
         }
     },
-    async weChatPay({ commit }, params) {
+    async weChatPay({ commit, rootState }, params) {
         const { success, data, msg } = await weChatPay(params)
         if (success) {
             callpay(
@@ -149,7 +156,10 @@ export default {
                     commit({
                         type: TYPES.CLEAR_CART
                     })
-                    clearLocal(CART)
+
+                    const { hotelId, roomId } = rootState.userInfo
+                    const localCartKey = `${CART}-${hotelId}-${roomId}`
+                    clearLocal(localCartKey)
                     router.push('/')
                 }
             )

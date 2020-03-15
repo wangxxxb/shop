@@ -21,8 +21,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import { SubmitBar, Icon, Tag } from 'vant'
-import { setLocal } from '@/utils'
-import { CART } from '@/constants/cart'
 
 export default {
     name: 'goods-submit-bar',
@@ -37,7 +35,6 @@ export default {
     },
     methods: {
         onSubmit() {
-            setLocal(CART, JSON.stringify(this.cartGoodsList))
             this.$router.push('/payment')
         }
     }

@@ -2,6 +2,8 @@ import { USER_INFO_KEYMAP, USER_INFO } from '@/constants/global'
 import { setLocal, getLocal, clearLocal, getURLParams } from '@/utils'
 import store from '@/store'
 import { SET_USER_INFO } from '@/store/global/mutation-types'
+import { SET_INIT_CART } from '@/store/modules/goods/mutation-types'
+import { CART } from '@/constants/cart'
 
 /**
  * 获取用户信息，该函数建议只执行一次
@@ -37,6 +39,17 @@ export function getUserInfo() {
             clearLocal(USER_INFO)
             return backupQuery
         }
+    }
+
+    const { hotelId, roomId } = userInfo
+
+    const { success, data } = getLocal(`${CART}-${hotelId}-${roomId}`, [], true)
+
+    if (success) {
+        store.commit({
+            type: `goods/${SET_INIT_CART}`,
+            list: data
+        })
     }
 
     store.commit({
