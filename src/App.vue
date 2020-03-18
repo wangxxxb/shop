@@ -17,6 +17,8 @@ export default {
         ...mapState(['browserType'])
     },
     async created() {
+        if (!this.browserType && process.env.VUE_APP_ENV === 'production')
+            return
         // 初始化判断浏览器环境，如果是微信浏览器，就添加微信sdk
         if (this.browserType === WEIXIN) await dynamicScript(settings.wxSdkSrc)
         this[SET_BRIDGE_READY]()
