@@ -34,9 +34,7 @@ router.beforeEach((to, from, next) => {
         } else {
             const title = to.meta && to.meta.title
 
-            if (title) {
-                document.title = title
-            }
+            if (title) document.title = title
             next()
         }
     }

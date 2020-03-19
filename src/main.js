@@ -8,7 +8,7 @@ import '@/filters'
 
 Vue.config.productionTip = false
 
-var EventBus = new Vue()
+const EventBus = new Vue()
 
 Object.defineProperties(Vue.prototype, {
     $bus: {
