@@ -36,7 +36,7 @@
                 </a>
             </div>
             <div class="complaints-hotline">
-                {{ '投诉电话：' + info.complaintPhone }}
+                {{ '投诉/加盟电话：' + info.complaintPhone }}
             </div>
         </div>
     </div>

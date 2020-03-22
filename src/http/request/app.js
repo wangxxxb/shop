@@ -13,21 +13,19 @@ export async function getStoreInfo() {
         const {
             StoreName: storename,
             StoreLogo: logo,
-            IndexBannerPic: bannerSrc,
-            IndexBannerAddress: bannerHref,
             ComplaintPhone: complaintPhone,
             OrdeMessage: paySuccessMsg,
-            WechatAddress: wxAddress
+            WechatAddress: wxAddress,
+            BannerList
         } = data[0]
 
         return {
             storename,
             logo,
-            bannerSrc,
-            bannerHref,
             complaintPhone,
             paySuccessMsg,
-            wxAddress
+            wxAddress,
+            BannerList
         }
     } else {
         return {}

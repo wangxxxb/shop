@@ -3,7 +3,11 @@
         <h1 class="room-location">
             {{ storeInfo.hotelName }}—{{ storeInfo.roomName }}号房
         </h1>
-        <div class="tel" v-for="item in storeInfo.phoneList" :key="item.name">
+        <div
+            class="tel"
+            v-for="(item, key) in storeInfo.phoneList"
+            :key="key + '-key'"
+        >
             <span class="tel-name">
                 {{ item.name + '：' }}
             </span>

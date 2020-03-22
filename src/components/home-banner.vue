@@ -1,29 +1,43 @@
 <template>
-    <a class="banner" :href="storeInfo.bannerHref">
-        <img :src="storeInfo.bannerSrc" />
-    </a>
+    <van-swipe class="banner-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="(item, key) in bannerList" :key="key">
+            <img :src="item.IndexBannerPic" />
+        </van-swipe-item>
+    </van-swipe>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { Swipe, SwipeItem } from 'vant'
 
 export default {
     name: 'home-banner',
+    components: {
+        [Swipe.name]: Swipe,
+        [SwipeItem.name]: SwipeItem
+    },
     computed: {
-        ...mapState(['storeInfo'])
+        ...mapState({
+            bannerList({ storeInfo }) {
+                return storeInfo.BannerList || []
+            }
+        })
     }
 }
 </script>
 
 <style lang="less" scoped>
-.banner {
-    display: block;
-    padding: 15px 15px 0;
-    border-radius: 15px;
-    overflow: hidden;
-    img {
-        width: 100%;
-        height: 100%;
+.banner-swipe {
+    margin: 10px 0;
+
+    &.van-swipe .van-swipe-item {
+        color: #fff;
+        height: 175px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 </style>
