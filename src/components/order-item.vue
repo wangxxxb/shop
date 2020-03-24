@@ -9,7 +9,7 @@
             </span>
         </div>
         <div class="time">
-            {{ time | formatTime('YYYY-MM-DD hh:mm:ss') }}
+            {{ time | formatTime('YYYY-MM-DD HH:mm:ss') }}
         </div>
         <div class="order-goods-list">
             <van-card
