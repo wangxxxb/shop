@@ -12,7 +12,7 @@ import { router } from '@/router'
 export default {
     async getGoodsCategoryList({ commit, dispatch }) {
         const res = await getGoodsCategory()
-        const sortList = res.sort((a, b) => a - b)
+        const sortList = res.sort((a, b) => a.Sort - b.Sort)
 
         commit({
             type: TYPES.SET_GOODS_CATEGORY_LIST,
@@ -30,9 +30,11 @@ export default {
             hotel_id: +hotelId
         })
 
+        const sortList = res.sort((a, b) => a.Sort - b.Sort)
+
         commit({
             type: TYPES.SET_GOODS_LIST,
-            goodsList: res
+            goodsList: sortList
         })
     },
     setActiveCategory({ commit, dispatch }, id) {
