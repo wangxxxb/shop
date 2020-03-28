@@ -18,7 +18,7 @@
                 </div>
                 <div class="count-controller">
                     <goods-stepper
-                        :value="goodsInfo.selectedCounts"
+                        :value="goodsInfo.counts"
                         :on-change="onChange"
                         :min="0"
                         :max="goodsInfo.Count"
@@ -50,10 +50,8 @@ export default {
     },
     methods: {
         onChange(value) {
-            const { Count, selectedCounts, ...rest } = this.goodsInfo // eslint-disable-line
-
             this.setCartGood({
-                goods: rest,
+                goods: this.goodsInfo,
                 isIncrease: value === 1
             })
         }

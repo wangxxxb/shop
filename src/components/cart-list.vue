@@ -2,27 +2,36 @@
     <div class="cart-list">
         <div class="title">已选商品{{ cartGoodsCounts }}件</div>
         <div class="list-content">
-            <cart-goods-item
+            <goods-item
                 v-for="item in cartGoodsList"
-                :key="item.Id"
+                :key="`key-${item.Id}`"
                 :goods-info="item"
+                :set-cart-good="setCartGood"
             />
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import CartGoodsItem from '@/components/cart-goods-item'
+import { mapGetters, mapState, mapActions } from 'vuex'
+import GoodsItem from '@/components/goods-item'
 
 export default {
     name: 'cart-list',
     components: {
-        [CartGoodsItem.name]: CartGoodsItem
+        [GoodsItem.name]: GoodsItem
     },
     computed: {
         ...mapGetters('goods', ['cartGoodsCounts']),
         ...mapState('goods', ['cartGoodsList'])
+    },
+    watch: {
+        cartGoodsCounts(curVal) {
+            if (!curVal) this.$router.replace('/')
+        }
+    },
+    methods: {
+        ...mapActions('goods', ['setCartGood'])
     }
 }
 </script>

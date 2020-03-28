@@ -82,7 +82,7 @@ export default {
                             return prev.concat({
                                 goodId: cur.Id,
                                 price: cur.Price,
-                                number: cur.counts
+                                counts: cur.counts
                             })
                         }, [])
                     )
