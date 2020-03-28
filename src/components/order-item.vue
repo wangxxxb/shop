@@ -26,7 +26,11 @@
                 {{ '订单状态：' + order.OrderTypeName }}
             </div>
             <van-button
-                v-if="order.OrderType === 6 || order.OrderType === 4"
+                v-if="
+                    order.OrderType === 6 ||
+                        order.OrderType === 4 ||
+                        order.OrderType === 8
+                "
                 @click="delOrder"
                 type="default"
                 size="small"
