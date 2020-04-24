@@ -17,7 +17,7 @@
                         -
                     </span>
                     <span v-if="info.roomId" class="room-info">
-                        {{ +info.roomId + '号房欢迎您' }}
+                        {{ info.roomId + '房欢迎您' }}
                     </span>
                     <p v-if="info.serviceTel" class="tel">
                         {{ '服务电话 ' + info.serviceTel }}

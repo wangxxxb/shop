@@ -18,7 +18,7 @@ export default {
         } = state
         const res = await getRoomInfo({
             hotel_id: +hotelId,
-            room_id: +roomId
+            room_id: roomId
         })
         commit({
             type: TYPES.SET_STORE_INFO,

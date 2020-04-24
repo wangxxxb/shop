@@ -1,7 +1,7 @@
 <template>
     <div class="index-header">
         <h1 class="room-location">
-            {{ storeInfo.hotelName }}—{{ storeInfo.roomName }}号房
+            {{ storeInfo.hotelName }}—{{ storeInfo.roomName }}房
         </h1>
         <div
             class="tel"
